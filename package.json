@@ -1,0 +1,21 @@
+{
+  "name": "@nsitbim/isxer",
+  "version": "1.0.0",
+  "description": "tool for isx files manipulation",
+  "main": "src/isxer-cli.js",
+  "bin": "src/isxer-cli.js",
+  "dependencies": {
+    "adm-zip": "^0.4.14",
+    "archiver": "^4.0.1",
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^6.1.0",
+    "debug": "^4.1.1",
+    "isexe": "^2.0.0",
+    "mkdirp": "^1.0.4",
+    "recursive-readdir": "^2.2.2",
+    "string-placeholder": "^1.0.2",
+    "xml-js": "^1.6.11"
+  },
+  "author": "NSITBIM/Adrien Ferrara",
+  "license": "ISC"
+}
