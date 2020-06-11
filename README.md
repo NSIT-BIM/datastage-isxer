@@ -1,6 +1,28 @@
+![](https://img.shields.io/badge/release-v1.0.1-blue)
 # Tool to list split and merge isx files
 
   Combine multiple isx files to one or split one in single asset files
+
+## Installation
+### Option 1
+* Requirements:
+  * nodejs >12
+  * npm
+
+Clone the repository and run npm install:
+```
+git clone https://gitlab.com/nsitbim/satellites/isxer.git
+cd isxer
+npm install
+```
+
+
+### Option 2
+
+Download the latest prepackaged binary release: [v1.0.1](https://gitlab.com/nsitbim/satellites/isxer/uploads/98f87594c9ffdb806ff2b2a6def2f778/isxer)
+
+
+:warning: Only prepackaged binaries are available for linux. Windows releases will be made available depending on demand.
 
 ## Synopsis
 
