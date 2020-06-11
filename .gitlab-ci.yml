@@ -1,0 +1,34 @@
+image: 'node:latest'
+
+stages:
+  - build
+  - release
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm install -g pkg
+    - npm install
+    - pkg . -t linux
+  artifacts:
+    expire_in: 30 days
+    paths:
+      - isxer
+  only:
+    - master
+
+release:
+  stage: release
+  variables:
+    GITLAB_TOKEN: $CI_API_TOKEN
+  before_script:
+    - npm install -g semantic-release @semantic-release/gitlab-config conventional-changelog-conventionalcommits
+    - cat $SEM_RELEASE_OPTIONS > .releaserc.yml
+  script:
+    - semantic-release -e @semantic-release/gitlab-config
+  only:
+    - master
