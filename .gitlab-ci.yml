@@ -13,7 +13,7 @@ build:
   script:
     - npm install -g pkg
     - npm install
-    - pkg . -t linux
+    - pkg . -t node12-linux-x64 -o isxer
   artifacts:
     expire_in: 30 days
     paths:

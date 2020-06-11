@@ -17,5 +17,6 @@
     "xml-js": "^1.6.11"
   },
   "author": "NSITBIM/Adrien Ferrara",
+  "repository": "https://gitlab.com/nsitbim/satellites/isxer.git",
   "license": "ISC"
 }
