@@ -15,10 +15,8 @@ const format = {
 
 function multiFilter (array, filters) {
   const filterKeys = Object.keys(filters)
-  return array.filter(item => {
-    return filterKeys.every(
-      key => !!~item[key].search(new RegExp(filters[key], 'g'))
-    )
+  return array.filter((item) => {
+    return filterKeys.every((key) => !!~item[key].search(new RegExp(filters[key], 'g')))
   })
 }
 
@@ -29,6 +27,7 @@ function buildArtifact (assets, name, options = {}) {
   output.on('end', function () {})
   archive.on('warning', function (err) {
     if (err.code === 'ENOENT') {
+      console.log(err)
     } else {
       throw err
     }
