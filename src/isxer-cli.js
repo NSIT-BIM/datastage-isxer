@@ -55,7 +55,7 @@ async function split (options) {
     console.error('--input must be specified')
     process.exit(1)
   }
-  optionDefinitions[optionDefinitions.findIndex(object => object.name === 'input')] = {
+  optionDefinitions[optionDefinitions.findIndex((object) => object.name === 'input')] = {
     multiple: false,
     name: 'input',
     alias: 'i',
@@ -77,7 +77,7 @@ async function split (options) {
 function multiFilter (array, filters) {
   const filterKeys = Object.keys(filters)
   return array.filter((item) => {
-    return filterKeys.every(key => !!~item[key].search(new RegExp(filters[key], 'g')))
+    return filterKeys.every((key) => !!~item[key].search(new RegExp(filters[key], 'g')))
   })
 }
 
@@ -113,7 +113,7 @@ if (options.command === 'list') {
   options = commandLineArgs(optionDefinitions)
   if (options.filter) {
     var filter = {}
-    options.filter.map(f => {
+    options.filter.map((f) => {
       filter[f.split('=')[0]] = f.split('=')[1]
     })
     options.filter = filter
@@ -131,8 +131,8 @@ if (options.command === 'list') {
   } else if (options.format === 'csv') {
     var header = Object.keys(list[0])
     console.log(header.join(options.delimiter))
-    list.map(l => {
-      console.log(header.map(c => {
+    list.map((l) => {
+      console.log(header.map((c) => {
         return l[c]
       }).join(options.delimiter))
     })
