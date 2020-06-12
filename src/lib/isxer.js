@@ -20,7 +20,7 @@ function multiFilter (array, filters) {
   })
 }
 
-function buildArtifact (assets, name, options = {}) {
+function buildArtifact (assets, name) {
   var output = fs.createWriteStream(name)
   var archive = archiver('zip')
   output.on('close', function () {})
@@ -96,13 +96,13 @@ function ListAssets (name, options = {}) {
         .join('/'),
       type: apath.split('.').slice(-1)[0],
       executable: entry.elements.filter(
-        (t, i, a) =>
+        (t) =>
           t.name === 'additionalInfo' &&
           t.attributes.key === 'includeexecutable'
       )[0].attributes.value
     }
     var element2 = {}
-    options.attributes.map(a => {
+    options.attributes.map((a) => {
       element2[a] = element[a]
     })
     list.push(element2)
@@ -118,7 +118,7 @@ function SplitArtifact (name, options = {}) {
   options = Object.assign({}, defaults, options)
   if (options.filter) {
     var filter = {}
-    options.filter.map(f => {
+    options.filter.map((f) => {
       filter[f.split('=')[0]] = f.split('=')[1]
     })
     options.filter = filter
@@ -202,6 +202,7 @@ function SplitArtifact (name, options = {}) {
 
       archive.on('warning', function (err) {
         if (err.code === 'ENOENT') {
+          console.error(err)
         } else {
           throw err
         }
