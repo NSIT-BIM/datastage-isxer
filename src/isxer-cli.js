@@ -36,7 +36,7 @@ async function merge (options) {
     console.error('--output must be specified')
     process.exit(1)
   }
-  optionDefinitions[optionDefinitions.findIndex(object => object.name === 'input')] = {
+  optionDefinitions[optionDefinitions.findIndex((object) => object.name === 'input')] = {
     multiple: true,
     defaultValue: await listIsx('./', options),
     name: 'input',
@@ -62,7 +62,7 @@ async function split (options) {
     type: String,
     description: 'source file'
   }
-  optionDefinitions[optionDefinitions.findIndex(object => object.name === 'output')] = {
+  optionDefinitions[optionDefinitions.findIndex((object) => object.name === 'output')] = {
     name: 'output',
     alias: 'o',
     type: String,
