@@ -8,8 +8,8 @@ const optionDefinitions = [
   { name: 'filter', alias: 'f', multiple: true, type: String, description: 'filter for list or split' },
   { name: 'attributes', multiple: true, alias: 'a', defaultValue: ['name', 'path', 'server', 'project', 'category', 'type', 'executable'], type: Array, description: 'Attributes to show' },
   { name: 'format', type: String, description: 'Output format(json,csv,table)' },
-  { name: 'delimiter', type: String, alias: 'd', defaultValue: ';', description: 'csv format delimter' }
-
+  { name: 'delimiter', type: String, alias: 'd', defaultValue: ';', description: 'csv format delimter' },
+  { name: 'suffix', alias: 's', type: String, description: 'suffix to add to object name on split' }
 ]
 
 const sections = [
