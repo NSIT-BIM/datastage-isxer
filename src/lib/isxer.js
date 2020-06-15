@@ -37,11 +37,16 @@ function buildArtifact (assets, name) {
   })
   archive.pipe(output)
   var manifest = {}
+
   assets.isx.forEach(function (asset) {
     debug(asset)
     if (asset !== name) {
       console.log('Adding:' + asset)
-      var zip = new AdmZip(asset)
+      try {
+        var zip = new AdmZip(asset)
+      } catch (ex) {
+        debug(ex)
+      }
       zip.getEntries().forEach(function (zipEntry) {
         if (zipEntry.entryName !== 'META-INF/IS-MANIFEST.MF') {
           debug(zipEntry.entryName)
@@ -182,18 +187,6 @@ function SplitArtifact (name, options = {}) {
       )
       var archive = archiver('zip')
       output.on('close', function () {
-        if (options.nobins) {
-          var zip = new AdmZip(template(options.target, attributes, format))
-
-          zip.getEntries().forEach(function (zipEntry) {
-            zip.extractEntryTo(
-              zipEntry,
-              path.dirname(template(options.target, attributes, format)),
-              false,
-              true
-            )
-          })
-        }
       })
 
       output.on('end', function () {
@@ -224,9 +217,6 @@ function SplitArtifact (name, options = {}) {
         name: 'META-INF/IS-MANIFEST.MF'
       })
       archive.append(artifact.readFile(apath), { name: apath })
-      if (options.verbose) {
-        console.log(apath)
-      }
 
       if (artifact.getEntry(binary)) {
         archive.append(artifact.readFile(binary), { name: binary })
