@@ -4,6 +4,7 @@
   "description": "tool for isx files manipulation",
   "main": "src/isxer-cli.js",
   "bin": "src/isxer-cli.js",
+  "scripts": {"test":"node tests/test"},
   "dependencies": {
     "adm-zip": "^0.4.14",
     "archiver": "^4.0.1",
