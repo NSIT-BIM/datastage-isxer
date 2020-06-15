@@ -71,7 +71,7 @@ async function split (options) {
   }
   options = commandLineArgs(optionDefinitions)
   debug(options)
-  isxer.splitIsx(options.input, { target: options.output, filter: options.filter }, options.verbose)
+  isxer.splitIsx(options)
 }
 
 function multiFilter (array, filters) {

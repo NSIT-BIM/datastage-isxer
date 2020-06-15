@@ -7,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 // var isexe = require('isexe')
 var debug = require('debug')('isxer')
+// const util = require('util')
 
 const format = {
   before: '[',
@@ -115,12 +116,10 @@ function ListAssets (name, options = {}) {
   return list
 }
 
-function SplitArtifact (name, options = {}) {
-  var defaults = {
-    target: './[project]/[category]/[name].isx',
-    filter: {}
-  }
-  options = Object.assign({}, defaults, options)
+function SplitArtifact (options) {
+  var name = options.input
+
+  // options = Object.assign({}, defaults, options)
   if (options.filter) {
     var filter = {}
     options.filter.map((f) => {
@@ -156,9 +155,13 @@ function SplitArtifact (name, options = {}) {
       .slice(2, -1)
       .join('/')
     attributes.type = apath.split('.').slice(-1)[0]
-
-    var jsonasset = convert.xml2js(artifact.readAsText(apath)).elements[0]
-      .attributes
+    var asset = convert.xml2js(
+      artifact
+        .getEntry(apath)
+        .getData()
+        .toString('utf8')
+    )
+    var jsonasset = asset.elements[0].attributes
     attributes.jobType = jsonasset.jobType
     attributes.dSJobType = jsonasset.dSJobType
     var lastModificationTimestamp = new Date(
@@ -180,10 +183,14 @@ function SplitArtifact (name, options = {}) {
       multiFilter([attributes], options.filter).length > 0
     ) {
       // var asset=new AdmZip();
-      var target = template(options.target, attributes, format)
+      if (options.suffix) {
+        attributes.name = attributes.name + options.suffix
+      }
+      var target = template(options.output, attributes, format)
+      debug(target)
       mkdirp.sync(path.dirname(target))
       var output = fs.createWriteStream(
-        template(options.target, attributes, format)
+        template(target, attributes, format)
       )
       var archive = archiver('zip')
       output.on('close', function () {
@@ -209,22 +216,63 @@ function SplitArtifact (name, options = {}) {
       archive.pipe(output)
 
       console.log(
-        template('Extracting [name] to ' + options.target, attributes, format)
+        template('Extracting [name] to ' + target, attributes, format)
       )
       var newmanifest = emptymanifest
+      if (options.suffix) {
+        entry.attributes.name = entry.attributes.name + options.suffix
+        entry.attributes.path = entry.attributes.path.split('.')[0] + options.suffix + '.' + entry.attributes.path.split('.')[1]
+        entry.elements = entry.elements.map(e => {
+          if (e.name === 'id') {
+            e.attributes.value = e.attributes.value.split('?')[0] + options.suffix + '?' + e.attributes.value.split('?')[1]
+          }
+          if (e.name === 'additionalInfo' && e.attributes.key === 'executablepath') {
+          //  e.attributes.value = e.attributes.value.split('.')[0] + options.suffix + '.' + e.attributes.value.split('.')[1]
+          }
+          if (e.name === 'additionalInfo' && e.attributes.key === 'path') {
+            e.attributes.value = e.attributes.value.split('.')[0] + options.suffix + '.' + e.attributes.value.split('.')[1]
+          }
+          return e
+        }).filter(e => e.attributes.key !== 'executablepath' && e.attributes.key !== 'includeexecutable')
+        asset.elements[0].attributes.name = asset.elements[0].attributes.name + options.suffix
+        // debug(util.inspect(asset.elements[0].attributes, false, null, true))
+      }
+      // debug(util.inspect(entry.elements, false, null, true))
       newmanifest.elements[0].elements = [entry]
       archive.append(Buffer.from(convert.js2xml(newmanifest)), {
         name: 'META-INF/IS-MANIFEST.MF'
       })
-      archive.append(artifact.readFile(apath), { name: apath })
 
-      if (artifact.getEntry(binary)) {
+      if (options.suffix) {
+        archive.append(Buffer.from(convert.js2xml(asset, { spaces: 3, attributeValueFn: encode })), {
+          name: entry.attributes.path
+        })
+      } else {
+        archive.append(artifact.readFile(apath), { name: entry.attributes.path })
+      }
+
+      debug(entry.attributes.path)
+
+      if (artifact.getEntry(binary) && !options.suffix) {
         archive.append(artifact.readFile(binary), { name: binary })
       }
 
       archive.finalize()
     }
   })
+}
+
+const encode = function (attributeValue) {
+  return attributeValue.replace(/&quot;/g, '"') // convert quote back before converting amp
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\u001d/g, '&#x1D;')
+    .replace(/\u001e/g, '&#x1E;')
+    .replace(/\r/g, '&#xD;')
+    .replace(/\n/g, '&#xA;')
+    .replace(/'/g, '&apos;')
 }
 
 module.exports.mergeIsx = buildArtifact
