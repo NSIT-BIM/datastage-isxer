@@ -1,6 +1,6 @@
 {
   "name": "@nsitbim/isxer",
-  "version": "1.1.0",
+  "version": "1.1.5",
   "private": true,
   "description": "tool for isx files manipulation",
   "main": "src/isxer-cli.js",
