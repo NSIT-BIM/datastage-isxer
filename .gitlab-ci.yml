@@ -35,7 +35,7 @@ release:
   before_script:
     - npm install -g semantic-release @semantic-release/gitlab @semantic-release/npm @semantic-release/gitlab-config conventional-changelog-conventionalcommits
   script:
-    - cat $SEM_RELEASE_OPTIONS > .releaserc.yml
+    - cat $SEM_RELEASE_OPTIONS > .releaserc
     - semantic-release -e @semantic-release/gitlab-config
   only:
     - master
