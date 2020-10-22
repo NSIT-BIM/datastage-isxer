@@ -1,5 +1,19 @@
 image: 'node:latest'
 
+workflow:
+  rules:
+    - if: $CI_PIPELINE_TRIGGERED
+      when: always
+    - if: $CI_COMMIT_MESSAGEE =~ /wip/
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /ci/ && $CI_COMMIT_MESSAGE  =~ /force/
+      when: always
+    - if: $CI_COMMIT_MESSAGE =~ /ci/
+      when: never   
+    - if: $CI_COMMIT_MESSAGE =~ /fix/ || $CI_COMMIT_MESSAGE =~ /evol/ || $CI_COMMIT_MESSAGE =~ /major/ 
+      when: always   
+    - when: never
+
 stages:
   - build
   - release
@@ -20,6 +34,9 @@ build:
     - npm install -g pkg
     - npm install
     - pkg . -t node12-linux-x64 -o isxer
+    - git add package.json
+    - "git commit -m 'ci(package.json): bump version'"
+    - git push
     - git push --delete origin v$(npm --loglevel silent run version ) 
   artifacts:
     expire_in: 30 days
