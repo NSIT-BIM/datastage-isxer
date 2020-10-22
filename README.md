@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/release-v1.0.1-blue)
+![](https://img.shields.io/badge/release-v1.1.0-blue)
 
 # Tool to list split and merge isx files
 
@@ -20,7 +20,7 @@ Clone the repository and run npm install:
 
 ### Option 2
 
-Download the latest prepackaged binary release: [v1.0.1](https://gitlab.com/nsitbim/satellites/isxer/uploads/98f87594c9ffdb806ff2b2a6def2f778/isxer)
+Download the latest prepackaged binary release: [v1.1.0](https://gitlab.com/nsitbim/satellites/isxer/uploads/b8d29feac68a49a325f5fd1f8ad991fb/isxer)
 
 :warning: Only prepackaged binaries are available for linux. Windows releases will be made available depending on demand.
 
