@@ -38,7 +38,7 @@ build:
     - pkg . -t node12-linux-x64 -o isxer
     - git add package.json
     - "git commit -m 'ci(package.json): bump version'"
-    - git push
+    - git push origin HEAD:master
     - git push --delete origin v$(npm --loglevel silent run version ) 
   artifacts:
     expire_in: 30 days
