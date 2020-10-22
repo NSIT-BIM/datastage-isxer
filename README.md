@@ -1,5 +1,3 @@
-![](https://img.shields.io/badge/release-v1.1.0-blue)
-
 # Tool to list split and merge isx files
 
   Combine multiple isx files to one or split one in single asset files
