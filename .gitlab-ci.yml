@@ -20,7 +20,7 @@ build:
     - npm install -g pkg
     - npm install
     - pkg . -t node12-linux-x64 -o isxer
-    - git push --delete origin $(npm --loglevel silent run version ) 
+    - git push --delete origin v$(npm --loglevel silent run version ) 
   artifacts:
     expire_in: 30 days
     paths:
