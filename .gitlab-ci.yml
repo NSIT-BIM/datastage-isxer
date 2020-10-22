@@ -14,6 +14,7 @@ build:
     GITLAB_TOKEN: $CI_API_TOKEN
   before_script:
     - npm install -g semantic-release @semantic-release/gitlab @semantic-release/npm @semantic-release/gitlab-config conventional-changelog-conventionalcommits
+    - git remote set-url origin https://$GIT_CI_USER:$CI_API_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
   script:
     - semantic-release
     - npm install -g pkg
