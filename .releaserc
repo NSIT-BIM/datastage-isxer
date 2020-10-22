@@ -1,0 +1,4 @@
+branch: master
+verifyConditions: ['@semantic-release/gitlab']
+plugins: 
+  - - "@semantic-release/npm"

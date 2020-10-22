@@ -10,7 +10,12 @@ cache:
 
 build:
   stage: build
+  variables:
+    GITLAB_TOKEN: $CI_API_TOKEN
+  before_script:
+    - npm install -g semantic-release @semantic-release/gitlab @semantic-release/npm @semantic-release/gitlab-config conventional-changelog-conventionalcommits
   script:
+    - semantic-release -e @semantic-release/gitlab-config
     - npm install -g pkg
     - npm install
     - pkg . -t node12-linux-x64 -o isxer
