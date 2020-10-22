@@ -18,7 +18,7 @@ Clone the repository and run npm install:
 
 ### Option 2
 
-Download the latest prepackaged binary release: [v1.1.0](https://gitlab.com/nsitbim/satellites/isxer/uploads/b8d29feac68a49a325f5fd1f8ad991fb/isxer)
+Download the latest prepackaged binary [artifact](https://gitlab.com/nsitbim/satellites/isxer/-/releases)
 
 :warning: Only prepackaged binaries are available for linux. Windows releases will be made available depending on demand.
 
