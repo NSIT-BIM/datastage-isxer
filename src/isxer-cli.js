@@ -90,6 +90,10 @@ if (options.help || !options.command) {
   process.exit(0)
 }
 
+if (options.command === 'version') {
+  console.log('isxer v' + require(path.join(__dirname, '..', 'package.json')).version)
+}
+
 if (options.command === 'split') {
   split(options)
 }

@@ -2,21 +2,21 @@
 var origArgs = process.argv
 
 console.log('first test')
-var args = ['list', '-i', 'tests/test.isx']
+var args = ['list', '-i', 'test.isx']
 process.argv = origArgs.concat(args)
 console.log(process.argv)
 require('../src/isxer-cli')
 delete require.cache[require.resolve('../src/isxer-cli')]
 
 console.log('second test')
-args = ['list', '-i', 'tests/test.isx', '-f', 'name=Jx.*']
+args = ['list', '-i', 'test.isx', '-f', 'name=Jx.*']
 process.argv = origArgs.concat(args)
 console.log(process.argv)
 require('../src/isxer-cli')
 delete require.cache[require.resolve('../src/isxer-cli')]
 
 console.log('third test')
-args = ['split', '-i', 'tests/test.isx', '-f', 'name=Jx.*']
+args = ['split', '-i', 'test.isx', '-f', 'name=Jx.*']
 process.argv = origArgs.concat(args)
 console.log(process.argv)
 require('../src/isxer-cli')

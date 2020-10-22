@@ -26,9 +26,9 @@ Download the latest prepackaged binary release: [v1.0.1](https://gitlab.com/nsit
 
 ## Synopsis
 
-      $ isxer command split -i inputFile.isx -o outputfiles.isx
-      $ isxer command merge -i inputFiles.isx -o outputfile.isx
-      $ isxer command list  -i inputFile.isx
+      $ isxer split -i inputFile.isx -o outputfiles.isx
+      $ isxer merge -i inputFiles.isx -o outputfile.isx
+      $ isxer list  -i inputFile.isx
       $ isxer --help
 
 ## Options
@@ -70,10 +70,10 @@ Download the latest prepackaged binary release: [v1.0.1](https://gitlab.com/nsit
 
 ## Examples
 
-1.  Split an isx                                        `$ isxer -i file.isx -o ./[name].isx`
-2.  Organise splited files according to categories       `$ isxer -i file.isx -o ./[category]/[name].isx`
-3.  Date splited files with the last modification date   `$ isxer -i file.isx -o ./[category]/[name].[Y][M][D].isx`
-4.  Merge two isx files in one                           `$ isxer -i file1.isx file2.isx -o merged.isx`
-5.  Merge all isx files present in current folder        `$ isxer -i *.isx -o merged.isx`
-6.  Same results as above                                `$ isxer -o merged.isx`
-7.  Same but will recurse in subfolders                  `$ isxer -o merged.isx -r`
+1.  Split an isx                                        `$ isxer split -i file.isx -o ./[name].isx`
+2.  Organise splited files according to categories       `$ isxer split -i file.isx -o ./[category]/[name].isx`
+3.  Date splited files with the last modification date   `$ isxer split -i file.isx -o ./[category]/[name].[Y][M][D].isx`
+4.  Merge two isx files in one                           `$ isxer merge -i file1.isx file2.isx -o merged.isx`
+5.  Merge all isx files present in current folder        `$ isxer merge -i *.isx -o merged.isx`
+6.  Same results as above                                `$ isxer merge -o merged.isx`
+7.  Same but will recurse in subfolders                  `$ isxer merge -o merged.isx -r`

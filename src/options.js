@@ -20,9 +20,9 @@ const sections = [
   {
     header: 'Synopsis',
     content: [
-      '$ isxer command split -i inputFile.isx -o outputfiles.isx',
-      '$ isxer command merge -i inputFiles.isx -o outputfile.isx',
-      '$ isxer command list  -i inputFile.isx',
+      '$ isxer split -i inputFile.isx -o outputfiles.isx',
+      '$ isxer merge -i inputFiles.isx -o outputfile.isx',
+      '$ isxer list  -i inputFile.isx',
       '$ isxer {bold --help}'
     ]
   },
@@ -123,31 +123,31 @@ const sections = [
     content: [
       {
         desc: '1. Split an isx ',
-        example: '$ isxer -i file.isx -o ./[name].isx'
+        example: '$ isxer split -i file.isx -o ./[name].isx'
       },
       {
         desc: '2. Organise splited files according to categories',
-        example: '$ isxer -i file.isx -o ./[category]/[name].isx'
+        example: '$ isxer split -i file.isx -o ./[category]/[name].isx'
       },
       {
         desc: '3. Date splited files with the last modification date',
-        example: '$ isxer -i file.isx -o ./[category]/[name].[Y][M][D].isx'
+        example: '$ isxer split -i file.isx -o ./[category]/[name].[Y][M][D].isx'
       },
       {
         desc: '4. Merge two isx files in one',
-        example: '$ isxer -i file1.isx file2.isx -o merged.isx'
+        example: '$ isxer merge -i file1.isx file2.isx -o merged.isx'
       },
       {
         desc: '5. Merge all isx files present in current folder',
-        example: '$ isxer -i *.isx -o merged.isx'
+        example: '$ isxer merge -i *.isx -o merged.isx'
       },
       {
         desc: '6. Same results as above',
-        example: '$ isxer -o merged.isx'
+        example: '$ isxer merge -o merged.isx'
       },
       {
         desc: '7. Same but will recurse in subfolders',
-        example: '$ isxer -o merged.isx -r'
+        example: '$ isxer merge -o merged.isx -r'
       }
     ]
   }
