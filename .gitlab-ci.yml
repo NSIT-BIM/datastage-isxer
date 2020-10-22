@@ -32,8 +32,8 @@ release:
     GITLAB_TOKEN: $CI_API_TOKEN
   before_script:
     - npm install -g semantic-release @semantic-release/gitlab @semantic-release/npm @semantic-release/gitlab-config conventional-changelog-conventionalcommits
-    - cat $SEM_RELEASE_OPTIONS > .releaserc.yml
   script:
+    - cat $SEM_RELEASE_OPTIONS > .releaserc.yml
     - semantic-release -e @semantic-release/gitlab-config
   only:
     - master
