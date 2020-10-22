@@ -6,7 +6,8 @@
   "main": "src/isxer-cli.js",
   "bin": "src/isxer-cli.js",
   "scripts": {
-    "test": "node tests/test"
+    "test": "node tests/test",
+    "version": "node -pe \"require('./package.json').version\""
   },
   "dependencies": {
     "adm-zip": "^0.4.14",
