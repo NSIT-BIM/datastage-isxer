@@ -16,17 +16,18 @@ Clone the repository and run npm install:
     cd isxer
     npm install
 
-### Option 2
+### Option 2 (standalone)
 
 Download the latest prepackaged binary [artifact](https://gitlab.com/nsitbim/satellites/isxer/-/releases)
 
-:warning: Only prepackaged binaries are available for linux. Windows releases will be made available depending on demand.
+:warning: Only prepackaged binaries are available for linux. Windows releases can be made available.
 
 ## Synopsis
 
       $ isxer split -i inputFile.isx -o outputfiles.isx
       $ isxer merge -i inputFiles.isx -o outputfile.isx
       $ isxer list  -i inputFile.isx
+      $ isxer version
       $ isxer --help
 
 ## Options
@@ -40,11 +41,14 @@ Download the latest prepackaged binary [artifact](https://gitlab.com/nsitbim/sat
       -a, --attributes array[]   Attributes to show
       --format string            Output format(json,csv,table)
       -d, --delimiter string     csv format delimter
+      --suffix                   appends a suffix to asset names in output file
 
 ## split
+Splits input isx file in multiple isx files (one per asset)
 
       -i, --input InputFile.isx   Isx file to split (defaults to all isx files in current directory)
       -o, --output [name].isx     Target format with placeholders (defaults to [name].isx)
+      -f, --filter                Filter on attribute
 
 ### Accepted placeholders
 
@@ -63,15 +67,41 @@ Download the latest prepackaged binary [artifact](https://gitlab.com/nsitbim/sat
 
 ## merge
 
+Combines multiple input isx files in one
+
       -i, --input InputFiles.isx   List of isx files to merge (accepts wildcards)
       -o, --output File.isx        Target file
 
+
+## list
+Prints metadata contents of input isx file
+
+      -i, --input InputFiles.isx   List of isx files to merge (accepts wildcards)
+      --format                     Format of list (json, csv, table)
+      -d, --delimiter              Delimter string (for csv format)
+      -a, --attributes             Attributes to print (name, path, server, project, category, type, executable)
+      --filter                     Filter on attribute
+
+
+## filter
+
+The filter argument is an array of attribute=value options.
+
+The value is a regular expression, so if the filter is `"name=job"` it will match all assets containing "job" in their name. 
+To match an asset strictly named "job" the filter should be `"name=^job$"`
+
+It is possible to pass multiple filters, it will act as an **AND**.
+
 ## Examples
 
-1.  Split an isx                                        `$ isxer split -i file.isx -o ./[name].isx`
+1.  Split an isx                                        `$ isxer split -i file.isx`
 2.  Organise splited files according to categories       `$ isxer split -i file.isx -o ./[category]/[name].isx`
+3. Append "_backup" to assets names   `$ isxer split -i file.isx --suffix _backup`
 3.  Date splited files with the last modification date   `$ isxer split -i file.isx -o ./[category]/[name].[Y][M][D].isx`
 4.  Merge two isx files in one                           `$ isxer merge -i file1.isx file2.isx -o merged.isx`
 5.  Merge all isx files present in current folder        `$ isxer merge -i *.isx -o merged.isx`
 6.  Same results as above                                `$ isxer merge -o merged.isx`
 7.  Same but will recurse in subfolders                  `$ isxer merge -o merged.isx -r`
+8.  List content of isx file                  `$ isxer list -i file.isx`
+9. List categories/names of isx file  `$ isxer list -i file.isx --attributes category name --format csv -d "/" `
+10. List only parallel jobs in root folder "Job" `$ isxer list -i file.isx --filter "category=^Jobs" "type=sjb" `
