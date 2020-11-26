@@ -105,3 +105,21 @@ It is possible to pass multiple filters, it will act as an **AND**.
 8.  List content of isx file                  `$ isxer list -i file.isx`
 9. List categories/names of isx file  `$ isxer list -i file.isx --attributes category name --format csv -d "/" `
 10. List only parallel jobs in root folder "Job" `$ isxer list -i file.isx --filter "category=^Jobs" "type=sjb" `
+
+## gitlab ci file example
+
+```yaml
+image: 'registry.gitlab.com/nsitbim/satellites/isxer:latest'
+
+stages:
+  - package
+
+package:
+    stage: package
+    script:
+        - isxer version
+        - isxer merge -o merged.isx -r
+        - ls -lrt *.isx
+    artifacts:
+        untracked: true
+```
